@@ -27,6 +27,129 @@ describe('The Todo.vue component', () => {
         expect(wrapper.find('#input-area').exists()).toBeTruthy()
     })
 })
+describe('The Todo.vue component with "buy some milk" in to do list',() => {
+    test('should see "buy some milk" in to do list',async () => {
+        const wrapper = mount(ToDo,{
+            data(){
+                return {
+                    tasks: [
+                        {
+                            name:'buy some milk',
+                            status:'Todo'
+                        }
+                    ]
+                }
+            }
+        })
+        expect(wrapper.find('#task-0').exists()).toBeTruthy()
+    })
+})
+describe('The Todo.vue component Adding second task in list',() => {
+    test('should "enjoy the assignment" be inserted to do list',async () => {
+        const wrapper = mount(ToDo,{
+            data(){
+                return {
+                    tasks: [
+                        {
+                            name:'buy some milk',
+                            status:'Todo'
+                        }
+                    ]
+                }
+            }
+        })
+        await wrapper.find('#input-area').setValue('enjoy the assignment')
+        await wrapper.find('#add-button').trigger('click')
+
+        expect(wrapper.find('#task-1').exists()).toBeTruthy()
+    })
+})
+describe('The Todo.vue component click status button and change task status',() => {
+    test('should "buy some milk" be marked as',async () => {
+        const wrapper = mount(ToDo,{
+            data(){
+                return {
+                    tasks: [
+                        {
+                            name:'buy some milk',
+                            status:'Todo'
+                        }
+                    ]
+                }
+            }
+        })
+        await wrapper.find('#status-button-0').trigger('click')
+
+        expect(wrapper.find('#task-0').classes()).toContain('line-through')
+    })
+})
+describe('The Todo.vue component click status button and change marked task status',() => {
+    test('should "buy some milk" be not marked as',async () => {
+        const wrapper = mount(ToDo,{
+            data(){
+                return {
+                    tasks: [
+                        {
+                            name:'buy some milk',
+                            status:'Done'
+                        }
+                    ]
+                }
+            }
+        })
+        await wrapper.find('#status-button-0').trigger('click')
+
+        expect(wrapper.find('#task-0').classes()).toEqual(['w-full','text-grey-darkest'])
+    })
+})
+describe('The Todo.vue component click remove button',() => {
+    test('should "rest for a while" be deleted',async () => {
+        const wrapper = mount(ToDo,{
+            data(){
+                return {
+                    tasks: [
+                        {
+                            name:'rest for a while',
+                            status:'Todo'
+                        }
+                    ]
+                }
+            }
+        })
+        await wrapper.find('#remove-button-0').trigger('click')
+
+        expect(wrapper.find('#task-0').exists()).toBeFalsy()
+    })
+})
+describe('The Todo.vue component Click remove button',() => {
+    test('should "rest for a while" be deleted',async () => {
+        const wrapper = mount(ToDo,{
+            data(){
+                return {
+                    tasks: [
+                        {
+                            name:'rest for a while',
+                            status:'Todo'
+                        },
+                        {
+                            name:'drink water',
+                            status:'Todo'
+                        }
+                    ]
+                }
+            }
+        })
+        expect(wrapper.find('#task-0').exists()).toBeTruthy()
+        expect(wrapper.find('#task-0').text()).toEqual('rest for a while')
+        expect(wrapper.find('#task-1').exists()).toBeTruthy()
+        expect(wrapper.find('#task-1').text()).toEqual('drink water')
+
+        await wrapper.find('#remove-button-0').trigger('click')
+
+        expect(wrapper.find('#task-0').text()).toEqual('drink water')
+        expect(wrapper.find('#task-1').exists()).toBeFalsy()
+    })
+})
 describe('The Todo.vue component',() => {
     test('should task and status button exist',() => {
         const wrapper = mount(ToDo,{
