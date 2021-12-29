@@ -11,11 +11,11 @@
       </div>
       <div v-for="(item,index) in tasks" :key="index">
         <div class="flex mb-4 items-center" v-show="tasks.length>0">
-          <p class="w-full text-grey-darkest" :class="{'line-through' : item.status==='Done'}">{{ item.name }}</p>
-          <button id="edit-button" class="flex-no-shrink p-2 ml-2 border-2 rounded text-blue-500 border-blue-500 hover:bg-blue-500 hover:text-white" @click="editTask(index)">Edit</button>
-          <button id="status-button" class="flex-no-shrink p-2 ml-4 mr-2 border-2 rounded bg-yellow-500 border-yellow-500 text-white" :class="{'bg-green-500 border-green-500 text-white' : item.status === 'Done'}" @click="changeStatus(index)">
+          <p :id="'task-'+index" class="w-full text-grey-darkest" :class="{'line-through' : item.status==='Done'}">{{ item.name }}</p>
+          <button :id="'edit-button-'+index" class="flex-no-shrink p-2 ml-2 border-2 rounded text-blue-500 border-blue-500 hover:bg-blue-500 hover:text-white" @click="editTask(index)">Edit</button>
+          <button :id="'status-button-'+index" class="flex-no-shrink p-2 ml-4 mr-2 border-2 rounded bg-yellow-500 border-yellow-500 text-white" :class="{'bg-green-500 border-green-500 text-white' : item.status === 'Done'}" @click="changeStatus(index)">
             {{ item.status }}</button>
-          <button id="remove-button" class="flex-no-shrink p-2 ml-2 border-2 rounded text-red-500 border-red-500 hover:bg-red-500 hover:text-white" @click="deleteTask(index)">Remove</button>
+          <button :id="'remove-button-'+index" class="flex-no-shrink p-2 ml-2 border-2 rounded text-red-500 border-red-500 hover:bg-red-500 hover:text-white" @click="deleteTask(index)">Remove</button>
         </div>
       </div>
     </div>
