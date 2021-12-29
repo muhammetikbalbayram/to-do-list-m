@@ -30,8 +30,7 @@ export default {
       task:'',
       tasks:[],
       editedTask:null,
-      status:['Todo','Done'],
-      doneButton:['text-white','bg-green-500','border-green-500']
+      status:['Todo','Done']
     }
   },
   methods: {
